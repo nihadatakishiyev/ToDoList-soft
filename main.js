@@ -12,31 +12,10 @@ class Task {
 
 class UI {
     static displayTasks() {
-        // var tasks = [
-        //     {
-        //         id: 1, 
-        //         name: 'Do programming homework',
-        //         importance: 'High', 
-        //         date: '11/22/1963'
-        //     }, 
-        //     {
-        //         id: 2, 
-        //         name: 'Do writing homework',
-        //         importance: 'Medium', 
-        //         date: '13/04/2001'
-        //     }, 
-        //     {
-        //         id: 3, 
-        //         name: 'Go in for gym', 
-        //         importance: 'Low', 
-        //         date: '11/01/2020'
-        //     }
-        // ]; 
         let tasks = Store.getLocalTasks(); 
 
         tasks.forEach((task)=>{
             UI.appendRow(task.id, task.name, task.importance, task.date); 
-            //console.log(task.date);   
         }); 
     }
 
@@ -113,10 +92,6 @@ class UI {
             }
             
         })
-        // console.log(Array.from(lis)[0].firstElementChild.nextElementSibling.textContent);
-        
-        
-
     }
 }
 
