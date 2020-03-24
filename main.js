@@ -98,6 +98,26 @@ class UI {
             document.querySelector('.alert').remove(); 
         }, 3000);
     }
+
+    static filterTasks(text) {
+        let tasks = document.getElementById('tbody'); 
+        let trs = tasks.getElementsByTagName('tr'); 
+        
+        Array.from(trs).forEach((tr)=>{
+            let tname = tr.firstElementChild.nextElementSibling.textContent; 
+            if(tname.toLowerCase().indexOf(text)!=-1){
+                tr.style.display = 'table-row'; 
+            }
+            else {
+                tr.style.display = 'none'; 
+            }
+            
+        })
+        // console.log(Array.from(lis)[0].firstElementChild.nextElementSibling.textContent);
+        
+        
+
+    }
 }
 
 /**----------------------------------------------------------------------------------------------------- */
@@ -157,3 +177,8 @@ document.querySelector('#tasks').addEventListener('click', (e)=> {
     Store.deleteLocalTask(id); 
 }); 
 
+document.querySelector('#search').addEventListener('keyup', (e)=>{
+    let text = e.target.value.toLowerCase(); 
+    
+    UI.filterTasks(text); 
+}); 
