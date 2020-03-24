@@ -34,7 +34,9 @@ class UI {
         //         date: '11/01/2020'
         //     }
         // ]; 
-        let tasks = JSON.stringify(Store.getLocalTasks()); 
+        let tasks = Store.getLocalTasks(); 
+        // console.log(tasks);
+        
 
         tasks.forEach((task)=>{
             UI.appendRow(task.id, task.name, task.importance, task.date); 
@@ -51,7 +53,8 @@ class UI {
             var task = new Task(id, name, importance, date);
         
             UI.appendRow(id, name, importance, date); 
-            this.clearFields(); 
+            Store.setLocalTask(task); 
+            // this.clearFields(); 
 
             this.showAlert('Task succesfully added', 'success'); 
         }
@@ -106,7 +109,20 @@ class UI {
 class Store {
     static getLocalTasks(){
         let tasks = localStorage.getItem('tasks') ?
-        JSON.parse(localStorage.getItem('items')) : [];    
+        JSON.parse(localStorage.getItem('tasks')) : []; 
+        
+        return tasks; 
+    }
+
+    static setLocalTask(task) {
+        let tasks = Store.getLocalTasks(); 
+        
+        tasks.push(task); 
+        // console.log(tasks);
+        localStorage.setItem('tasks', JSON.stringify(tasks)); 
+
+        console.log(localStorage.getItem('tasks'));
+        
     }
 }
 
@@ -131,4 +147,3 @@ document.querySelector('#tasks').addEventListener('click', (e)=> {
 
 }); 
 
-console.log();
