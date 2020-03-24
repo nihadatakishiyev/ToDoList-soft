@@ -14,26 +14,27 @@ class Task {
 
 class UI {
     static displayTasks() {
-        var tasks = [
-            {
-                id: 1, 
-                name: 'Do programming homework',
-                importance: 'High', 
-                date: '11/22/1963'
-            }, 
-            {
-                id: 2, 
-                name: 'Do writing homework',
-                importance: 'Medium', 
-                date: '13/04/2001'
-            }, 
-            {
-                id: 3, 
-                name: 'Go in for gym', 
-                importance: 'Low', 
-                date: '11/01/2020'
-            }
-        ]; 
+        // var tasks = [
+        //     {
+        //         id: 1, 
+        //         name: 'Do programming homework',
+        //         importance: 'High', 
+        //         date: '11/22/1963'
+        //     }, 
+        //     {
+        //         id: 2, 
+        //         name: 'Do writing homework',
+        //         importance: 'Medium', 
+        //         date: '13/04/2001'
+        //     }, 
+        //     {
+        //         id: 3, 
+        //         name: 'Go in for gym', 
+        //         importance: 'Low', 
+        //         date: '11/01/2020'
+        //     }
+        // ]; 
+        let tasks = JSON.stringify(Store.getLocalTasks()); 
 
         tasks.forEach((task)=>{
             UI.appendRow(task.id, task.name, task.importance, task.date); 
@@ -44,6 +45,7 @@ class UI {
     static addTask(id, name, importance, date) {
         if(id==='' || name === '' || importance === '' || date === ''){
              UI.showAlert('Please fill in all the indicated fields', 'danger');
+             
         }
         else{
             var task = new Task(id, name, importance, date);
@@ -77,10 +79,10 @@ class UI {
     }
 
     static clearFields(){ 
-        document.getElementById('id').value =''; 
-        document.getElementById('name').value; 
-        document.getElementById('importance').value; 
-        document.getElementById('date').value; 
+        document.getElementById('id').value = ''; 
+        document.getElementById('name').value= ''; 
+        document.getElementById('importance').value = ''; 
+        document.getElementById('date').value = ''; 
     }
 
     static showAlert(message, type){
@@ -96,6 +98,15 @@ class UI {
         setTimeout(() => {
             document.querySelector('.alert').remove(); 
         }, 3000);
+    }
+}
+
+/**----------------------------------------------------------------------------------------------------- */
+
+class Store {
+    static getLocalTasks(){
+        let tasks = localStorage.getItem('tasks') ?
+        JSON.parse(localStorage.getItem('items')) : [];    
     }
 }
 
@@ -120,5 +131,4 @@ document.querySelector('#tasks').addEventListener('click', (e)=> {
 
 }); 
 
-
-
+console.log();
