@@ -1,0 +1,11 @@
+#register-form, #add-task-form{
+    padding-top: 2em;
+}
+
+#tasks {
+    margin-top: 2em;
+}
+
+#add-task {
+    margin-top: 0.1em;
+}
