@@ -1,11 +1,9 @@
 class Task {
 
-    constructor(id, name, importance, assign, desc, date){
+    constructor(id, name, importance, date){
         this.id = id; 
         this.name = name; 
         this.importance = importance; 
-        this.assign = assign; 
-        this.desc = desc; 
         this.date = date; 
     }
 }
@@ -35,8 +33,6 @@ class UI {
         //     }
         // ]; 
         let tasks = Store.getLocalTasks(); 
-        // console.log(tasks);
-        
 
         tasks.forEach((task)=>{
             UI.appendRow(task.id, task.name, task.importance, task.date); 
@@ -47,14 +43,14 @@ class UI {
     static addTask(id, name, importance, date) {
         if(id==='' || name === '' || importance === '' || date === ''){
              UI.showAlert('Please fill in all the indicated fields', 'danger');
-             
+            
         }
         else{
             var task = new Task(id, name, importance, date);
         
             UI.appendRow(id, name, importance, date); 
             Store.setLocalTask(task); 
-            // this.clearFields(); 
+            this.clearFields(); 
 
             this.showAlert('Task succesfully added', 'success'); 
         }
@@ -124,6 +120,19 @@ class Store {
         console.log(localStorage.getItem('tasks'));
         
     }
+
+    static deleteLocalTask(id) {
+        let tasks = Store.getLocalTasks();
+
+        for (let i = 0; i < tasks.length; i++) {
+                let task = tasks[i]; 
+                if(task.id === id){
+                    tasks.splice(i, 1);
+                }
+        }
+    
+         localStorage.setItem('tasks', JSON.stringify(tasks)); 
+    }
 }
 
 /**----------------------------------------------------------------------------------------------------- */
@@ -137,13 +146,14 @@ document.getElementById('add-task-form').addEventListener('submit', (e)=>{
     var date = document.getElementById('date').value; 
 
     UI.addTask(id, name, importance, date); 
-    console.log();
 })
 
 document.addEventListener('DOMContentLoaded', UI.displayTasks()); 
 
 document.querySelector('#tasks').addEventListener('click', (e)=> {
-    UI.deleteTask(e.target); 
+    let id = e.target.parentElement.parentElement.parentElement.firstElementChild.textContent; 
 
+    UI.deleteTask(e.target); 
+    Store.deleteLocalTask(id); 
 }); 
 
