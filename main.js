@@ -109,15 +109,11 @@ class Store {
         let tasks = Store.getLocalTasks(); 
         
         tasks.push(task); 
-        // console.log(tasks);
-        localStorage.setItem('tasks', JSON.stringify(tasks)); 
-
-        console.log(localStorage.getItem('tasks'));
-        
+        localStorage.setItem('tasks', JSON.stringify(tasks));         
     }
 
     static deleteLocalTask(id) {
-        let tasks = Store.getLocalTasks();
+        let tasks = Store.getLocalTasks();        
 
         for (let i = 0; i < tasks.length; i++) {
                 let task = tasks[i]; 
@@ -135,10 +131,10 @@ class Store {
 document.getElementById('add-task-form').addEventListener('submit', (e)=>{
     e.preventDefault(); 
 
-    var id = document.getElementById('id').value; 
-    var name = document.getElementById('name').value; 
-    var importance = document.getElementById('importance').value; 
-    var date = document.getElementById('date').value; 
+    let id = (Store.getLocalTasks().length +1).toString(); 
+    let name = document.getElementById('name').value; 
+    let importance = document.getElementById('importance').value; 
+    let date = document.getElementById('date').value; 
 
     UI.addTask(id, name, importance, date); 
 })
