@@ -1,9 +1,10 @@
 class Task {
 
-    constructor(id, name, importance, date){
+    constructor(id, name, importance, assign, date){
         this.id = id; 
         this.name = name; 
         this.importance = importance; 
+        this.assign = assign; 
         this.date = date; 
     }
 }
@@ -19,27 +20,28 @@ class UI {
         }); 
     }
 
-    static addTask(id, name, importance, date) {
-        if(id==='' || name === '' || importance === '' || date === ''){
+    static addTask(id, name, importance, assign, date) {
+        if(id==='' || name === '' || importance === '' || date === '' || assign === ''){
              UI.showAlert('Please fill in all the indicated fields', 'danger');
             
         }
         else{
-            var task = new Task(id, name, importance, date);
+            var task = new Task(id, name, importance, assign, date);
         
-            UI.appendRow(id, name, importance, date); 
+            UI.appendRow(id, name, importance, assign, date); 
             Store.setLocalTask(task); 
             this.clearFields(); 
 
             this.showAlert('Task succesfully added', 'success'); 
         }
     }
-
-    static appendRow(id, name, importance, date){
+ 
+    static appendRow(id, name, importance, assign, date){
         var row = document.createElement('tr');
         row.innerHTML = `<td class = "tid">${id}</td>
         <td>${name}</td>
         <td>${importance}</td>
+        <td>${assign}</td>
         <td>${date}</td>
         <td><a href = "#"><i class="fas fa-trash delete"></i></a></td>
         `; 
@@ -60,6 +62,7 @@ class UI {
         document.getElementById('id').value = ''; 
         document.getElementById('name').value= ''; 
         document.getElementById('importance').value = ''; 
+        document.getElementById('assign').value = ''; 
         document.getElementById('date').value = ''; 
     }
 
@@ -144,9 +147,10 @@ document.getElementById('add-task-form').addEventListener('submit', (e)=>{
     let id = (Store.getLocalTasks().length +1).toString(); 
     let name = document.getElementById('name').value; 
     let importance = document.getElementById('importance').value; 
+    let assign = document.getElementById('assign').value; 
     let date = document.getElementById('date').value; 
 
-    UI.addTask(id, name, importance, date); 
+    UI.addTask(id, name, importance, assign, date); 
 })
 
 document.addEventListener('DOMContentLoaded', UI.displayTasks()); 
