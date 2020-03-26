@@ -37,7 +37,7 @@ class UI {
 
     static appendRow(id, name, importance, date){
         var row = document.createElement('tr');
-        row.innerHTML = `<td>${id}</td>
+        row.innerHTML = `<td class = "tid">${id}</td>
         <td>${name}</td>
         <td>${importance}</td>
         <td>${date}</td>
@@ -90,7 +90,6 @@ class UI {
             else {
                 tr.style.display = 'none'; 
             }
-            
         })
     }
 }
@@ -113,16 +112,27 @@ class Store {
     }
 
     static deleteLocalTask(id) {
-        let tasks = Store.getLocalTasks();        
+        let tasks = Store.getLocalTasks();           
 
-        for (let i = 0; i < tasks.length; i++) {
-                let task = tasks[i]; 
-                if(task.id === id){
-                    tasks.splice(i, 1);
-                }
-        }
-    
-         localStorage.setItem('tasks', JSON.stringify(tasks)); 
+        //remove deleted task from local storage
+        tasks.forEach((task, index) => {
+            if(task.id === id)
+                tasks.splice(index, 1); 
+        });
+
+        //assign indexes of tasks again
+        tasks.forEach((task, index) => {
+            task.id = (index + 1).toString(); 
+        });
+     
+        //change indexes of tasks in UI
+        let tids = document.querySelectorAll('.tid'); 
+        tids.forEach((tid, index) =>{
+            tid.innerHTML = (index+1).toString(); 
+        }); 
+
+        //assign renewed task array to local storage
+        localStorage.setItem('tasks', JSON.stringify(tasks));         
     }
 }
 
