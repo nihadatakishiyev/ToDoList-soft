@@ -16,7 +16,7 @@ class UI {
         let tasks = Store.getLocalTasks(); 
 
         tasks.forEach((task)=>{
-            UI.appendRow(task.id, task.name, task.importance, task.date); 
+            UI.appendRow(task.id, task.name, task.importance, task.assign, task.date); 
         }); 
     }
 
@@ -44,6 +44,7 @@ class UI {
         <td>${assign}</td>
         <td>${date}</td>
         <td><a href = "#"><i class="fas fa-trash delete"></i></a></td>
+        <td><a href = "#"><i class="fas fa-pencil-alt"></i></a></td>
         `; 
 
         var tbody = document.getElementById('tbody'); 
@@ -53,9 +54,8 @@ class UI {
     static deleteTask(e){
         if(e.classList.contains('delete')){
             e.parentElement.parentElement.parentElement.remove(); 
-        }
-
-        this.showAlert('Task deleted successfully', 'success'); 
+            this.showAlert('Task deleted successfully', 'success'); 
+        }    
     }
 
     static clearFields(){ 
@@ -167,3 +167,5 @@ document.querySelector('#search').addEventListener('keyup', (e)=>{
     
     UI.filterTasks(text); 
 }); 
+
+console.log(localStorage.getItem('tasks'));
