@@ -58,12 +58,12 @@
                     </select>
                 </div>
                 <div class="form-group col-md-4">
-                    <label for="assignee">Assigned to</label>
-                    <input type="text" class="form-control" id="assig" placeholder="Nihad">
+                    <label for="assign">Assigned to</label>
+                    <input type="text" class="form-control" id="assign" placeholder="Nihad">
                 </div>
                 <div class="form-group col-md-4">
                     <label for="id">Task ID</label>
-                    <input type="number" class="form-control" id="id" placeholder="">
+                    <input type="number" class="form-control" id="id" placeholder="" disabled>
                 </div>
             </div>
             <button class="btn btn-primary btn-block" id="add-task" type="submit">Add Task</button>       
@@ -76,6 +76,7 @@
                     <th>Task ID</th>
                     <th>Task Name</th>
                     <th>Importance</th>
+                    <th>Assigned to</th>
                     <th>Due Date</th>
                     <th><i class="fas fa-edit"></i></th>
                 </tr>
